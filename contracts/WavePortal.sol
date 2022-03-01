@@ -10,7 +10,7 @@ contract WavePortal {
     event NewWave(address indexed from, string message, uint256 timestamp);
 
     struct Wave {
-        address from;
+        address waver;
         string message;
         uint256 timestamp;
     }
@@ -26,6 +26,15 @@ contract WavePortal {
         console.log("%s has waved!", msg.sender);
 
         waves.push(Wave(msg.sender, _message, block.timestamp));
+
+        uint256 prizeMoney = 0.001 ether;
+
+        require(prizeMoney <= address(this).balance, "You don't have enough money!");
+
+        (bool success, ) = (msg.sender).call{value: prizeMoney}("");
+
+        require(success, "Failed to send ether!");	
+
     }
 
     function getAllWaves() public view returns (Wave[] memory) {

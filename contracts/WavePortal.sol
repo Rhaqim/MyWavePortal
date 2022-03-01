@@ -17,7 +17,7 @@ contract WavePortal {
 
     Wave [] waves;
     
-    constructor() {
+    constructor() payable {
         console.log("Yo yo, I am a contract and i'm alive!");
     }
 
@@ -27,7 +27,7 @@ contract WavePortal {
 
         waves.push(Wave(msg.sender, _message, block.timestamp));
 
-        uint256 prizeMoney = 0.001 ether;
+        uint256 prizeMoney = 0.0001 ether;
 
         require(prizeMoney <= address(this).balance, "You don't have enough money!");
 

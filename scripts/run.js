@@ -2,7 +2,7 @@ const hre = require("hardhat");
 
 const main = async () => {
     const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
-    const waveContract = await waveContractFactory.deploy({value: hre.ethers.utils.parseEther("0.1"),});
+    const waveContract = await waveContractFactory.deploy({value: hre.ethers.utils.parseEther("0.01"),});
     await waveContract.deployed();
     console.log("Contract addy:", waveContract.address);
 
@@ -33,6 +33,15 @@ const main = async () => {
   
     let allWaves = await waveContract.getAllWaves();
     console.log(allWaves);
+
+    contractBalance = await hre.ethers.provider.getBalance(
+      waveContract.address
+    );
+    console.log(
+      "Contract balance:",
+      hre.ethers.utils.formatEther(contractBalance)
+    );
+    
   };
   
   const runMain = async () => {
